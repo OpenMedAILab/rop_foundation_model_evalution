@@ -1,0 +1,26 @@
+# LoRA PEFT(E1.7,6 模型统一协议 × 4 折 LODO;由 gpu_queue.sh 排队执行)
+device: cuda:0
+check_gpu_free_mb: 30000          # 每个模型开跑前校验 GPU 空闲 ≥30GB;0 = 跳过
+splits_dir: data/manifests/splits
+output_dir: outputs/peft
+models: [retfound_green, retfound_mae_cfp, dinov2_vits14, dinov2_vitb14, convnext_tiny, efficientnet_b0]
+
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0.1
+
+train:
+  epochs: 20
+  patience: 5                   # val AUROC 连续 5 轮不提升即停
+  batch_size: 32
+  lr: 3.0e-4                    # LoRA 分支 lr
+  head_lr: 1.0e-2               # 新随机线性头 lr(调试定档:1e-2×20ep 最优 0.8704,见 debug_lora_lr2/3 + LORA_V1_POSTMORTEM)
+  head_steps: 640               # v2.1:head 高 lr 预算按绝对步数(调试口径 640 步),与总步数无关;
+                                # 共享 cosine 会让 1e-2 在真实折(8400 步)多走 13 倍 → 发散(farfum 全折 0.5657)
+  weight_decay: 0.01
+  batch_size_by_model: {retfound_mae_cfp: 16}   # ViT-L 1024 维,降批保显存
+
+num_workers: 4
+val_frac: 0.1
+seed: 0

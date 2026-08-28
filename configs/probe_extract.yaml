@@ -1,0 +1,16 @@
+# LODO 线性探针 — 本仓库提取的新模型特征(extract_features.py 产物)
+# 运行前提:outputs/features/{model}/{model}_features.npy 已生成(GPU 队列提取)
+models: [retfound_green, dinov2_vitb14]
+
+feature_source: extract
+cache_dir: outputs/benchmark_cache   # reference baseline cache; override with NEOROPFM_BENCHMARK_CACHE or place files here
+extract_dir: outputs/features
+splits_dir: data/manifests/splits
+output_dir: outputs/probes
+
+lr:
+  class_weight: balanced
+  C: 1.0
+  max_iter: 5000
+
+seed: 0

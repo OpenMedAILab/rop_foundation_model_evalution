@@ -1,0 +1,8 @@
+# 冻结特征提取(E2.5 检查点评估专用;与 extract.yaml 同口径,仅关闭显存门控
+# ——评估与 SSL 训练并行共存,显存充裕;SSL 训练入口的 40GB 门控保留)
+device: cuda:0
+check_gpu_free_mb: 0          # 0 = 跳过门控(并行评估)
+batch_size: 64
+num_workers: 4
+output_dir: outputs/features
+seed: 0

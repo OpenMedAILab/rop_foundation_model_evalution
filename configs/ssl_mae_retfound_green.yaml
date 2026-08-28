@@ -1,0 +1,33 @@
+# E2.3 MAE 继续预训练(备选路线;RETFound-Green 起点,75% mask,方案 §8.2 MAE 分支)。
+# 仅在 iBOT 路线失败/效果差时启用;PMA 辅助头不挂此路线(方案 §8.3 挂在主路线)。
+route: mae
+device: cuda:0
+check_gpu_free_mb: 40000
+manifest: data/manifests/ssl_corpus_manifest.csv
+output_dir: outputs/ssl/mae_retfound_green_v1
+base_model: retfound_green
+img_size: 392
+seed: 0
+
+data:
+  num_workers: 4
+
+mae:
+  mask_ratio: 0.75
+  decoder_dim: 192
+  decoder_depth: 4
+  decoder_heads: 6
+
+train:
+  max_epochs: 100
+  batch_size: 32
+  accum_steps: 1
+  lr: 2.0e-5              # MAE 线性缩放口径(1.5e-4 × 32/256 ≈ 1.9e-5);继续预训练取低 lr
+  min_lr: 2.0e-6
+  warmup_epochs: 5
+  weight_decay: 0.05
+  clip_grad: 3.0
+  amp: true
+
+log_every: 50
+ckpt_every: 10

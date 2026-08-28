@@ -1,0 +1,15 @@
+# E4.2 标签效率(方案 §20):冻结特征探针,仅训练标签比例变化
+# 口径与 E1 主基准一致;抽样单位 = 患者(分层),每 (fold, fraction) 5 种子
+# R3 修订:v1/heads 改用 _iso 后缀 → 每折读取隔离选中的 c*(不再固定 ep040)
+models: [retfound_mae_cfp, retfound_green, dinov2_vits14, dinov2_vitb14,
+         convnext_tiny, efficientnet_b0,
+         ibot_dinov2s_v1_iso, ibot_dinov2s_heads_iso]
+feature_source: extract
+cache_dir: outputs/benchmark_cache   # reference baseline cache; override with NEOROPFM_BENCHMARK_CACHE or place files here
+extract_dir: outputs/features
+splits_dir: data/manifests/splits
+output_dir: outputs/label_efficiency
+lr:
+  class_weight: balanced
+  C: 1.0
+  max_iter: 5000

@@ -1,0 +1,12 @@
+# E4.3 表征分析(方案 §21):PMA 可预测性 / DDS / PC1-PMA / PCA 坐标
+models: [retfound_mae_cfp, retfound_green, dinov2_vits14, dinov2_vitb14,
+         convnext_tiny, efficientnet_b0,
+         ibot_dinov2s_v1_ckpt_ep040, ibot_dinov2s_heads_ckpt_ep040]
+feature_source: extract
+cache_dir: outputs/benchmark_cache   # reference baseline cache; override with NEOROPFM_BENCHMARK_CACHE or place files here
+extract_dir: outputs/features
+ssl_manifest: data/manifests/ssl_corpus_manifest.csv
+strict_manifest: data/manifests/public_rop_strict_manifest.csv
+output_dir: outputs/representation
+n_boot: 2000
+seed: 0

@@ -1,0 +1,9 @@
+# 统计聚合(bootstrap CI / DeLong / 均值表)
+# 新模型特征提取+probe 完成后取消注释追加:
+models: [efficientnet_b0, convnext_tiny, dinov2_vits14, retfound_mae_cfp]
+# models: [efficientnet_b0, convnext_tiny, dinov2_vits14, retfound_mae_cfp, dinov2_vitb14, retfound_green]
+
+probe_dir: outputs/probes
+output_dir: outputs/aggregate
+n_boot: 2000
+seed: 42

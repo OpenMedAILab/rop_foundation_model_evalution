@@ -1,0 +1,7 @@
+# 冻结特征提取(E1 新模型;由 gpu_queue.sh 排队执行)
+device: cuda:0
+check_gpu_free_mb: 30000          # 提取前校验 GPU 空闲 ≥30GB;0 = 跳过
+batch_size: 64
+num_workers: 4
+output_dir: outputs/features
+seed: 0

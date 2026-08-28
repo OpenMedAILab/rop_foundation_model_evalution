@@ -1,0 +1,13 @@
+# P6: HVDROPDB 外部折特征提取 — CPU 模式(185 图,~1h;共享 GPU 被 szeh/e2c 占用)
+# 与 4 个基线模型的 CPU 提取口径一致(feature_meta.device=cpu)。
+# 输出 outputs/features_hvdropdb/{model}/ —— 只含 185 张 hvdropdb 图,
+# 由 scripts/external_fold_eval.py 与主特征拼接,训练侧特征零触碰。
+# 各 SSL 池选 ckpt_final:其 4 个内部隔离折(selection_{held}.csv)一致所选。
+# loto_minus_szeh 待 P1a 重训完成后追加提取(--model)。
+device: cpu
+check_gpu_free_mb: 0
+cpu_threads: 16
+batch_size: 64
+num_workers: 4
+output_dir: outputs/features_hvdropdb
+seed: 0

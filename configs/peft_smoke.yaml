@@ -1,0 +1,23 @@
+# peft.py 冒烟测试:小批量、1 轮、跳过 GPU 空闲校验(与 peft.yaml 其余协议一致)
+device: cuda:0
+check_gpu_free_mb: 0
+splits_dir: data/manifests/splits
+output_dir: outputs/peft_smoke
+models: [retfound_green]
+
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0.1
+
+train:
+  epochs: 1
+  patience: 3
+  batch_size: 8
+  lr: 3.0e-4
+  weight_decay: 0.01
+  batch_size_by_model: {}
+
+num_workers: 2
+val_frac: 0.1
+seed: 0

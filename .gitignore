@@ -1,0 +1,21 @@
+# data & artifacts (datasets are not redistributed)
+/data/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.ipynb_checkpoints/
+
+# model weights & feature caches (never commit)
+*.pth
+*.pt
+*.npy
+*.npz
+*.ckpt
+*.safetensors
+
+# logs / misc
+*.log
+.DS_Store

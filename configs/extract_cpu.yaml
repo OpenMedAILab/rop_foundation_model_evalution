@@ -1,0 +1,10 @@
+# 冻结特征提取 — CPU 模式(共享 GPU 被占用时的协议一致方案)
+# yesterday 的 4 个基线特征同样为 CPU 提取(feature_meta.device=cpu),
+# 新模型用 CPU 提取保持口径一致;约 30–45 分钟/两模型,限 16 线程。
+device: cpu
+check_gpu_free_mb: 0
+cpu_threads: 16
+batch_size: 64
+num_workers: 4
+output_dir: outputs/features
+seed: 0

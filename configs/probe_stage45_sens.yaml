@@ -1,0 +1,17 @@
+# 标签规则近似敏感性(E0 第 3 项):ROP-VL 按方案 §2.1 记载的稿件规则(A-ROP 或
+# stage 4/5;Stage 3 无 A-ROP → 阴性)重建标签,其余协议与主基准完全一致。
+# 复用已提取特征(CPU 探针),与 GPU 训练并行。
+models: [retfound_green, retfound_mae_cfp, dinov2_vits14, dinov2_vitb14, convnext_tiny, efficientnet_b0]
+
+feature_source: extract
+cache_dir: outputs/benchmark_cache   # reference baseline cache; override with NEOROPFM_BENCHMARK_CACHE or place files here
+extract_dir: outputs/features
+splits_dir: data/manifests/splits_stage45_sens
+output_dir: outputs/probes_stage45_sens
+
+lr:
+  class_weight: balanced
+  C: 1.0
+  max_iter: 5000
+
+seed: 0

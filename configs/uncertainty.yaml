@@ -1,0 +1,4 @@
+# E5 不确定性分流(方案 §17):selective prediction + DCA + 工作量模拟
+models: [retfound_green, dinov2_vitb14, ibot_dinov2s_v1_ckpt_ep040, ibot_dinov2s_heads_ckpt_ep040]
+probe_dir: outputs/probes
+output_dir: outputs/uncertainty

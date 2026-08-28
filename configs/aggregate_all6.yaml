@@ -1,0 +1,7 @@
+# 统计聚合 — 6 模型全集(4 基线 + retfound_green + dinov2_vitb14)
+models: [efficientnet_b0, convnext_tiny, dinov2_vits14, retfound_mae_cfp, dinov2_vitb14, retfound_green]
+
+probe_dir: outputs/probes
+output_dir: outputs/aggregate
+n_boot: 2000
+seed: 42

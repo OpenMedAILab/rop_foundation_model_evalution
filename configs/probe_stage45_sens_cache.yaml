@@ -1,0 +1,15 @@
+# 标签规则近似敏感性(cache 侧):4 个 yesterday 缓存特征模型,同变体 splits。
+models: [efficientnet_b0, convnext_tiny, dinov2_vits14, retfound_mae_cfp]
+
+feature_source: cache
+cache_dir: outputs/benchmark_cache   # reference baseline cache; override with NEOROPFM_BENCHMARK_CACHE or place files here
+extract_dir: outputs/features
+splits_dir: data/manifests/splits_stage45_sens
+output_dir: outputs/probes_stage45_sens
+
+lr:
+  class_weight: balanced
+  C: 1.0
+  max_iter: 5000
+
+seed: 0

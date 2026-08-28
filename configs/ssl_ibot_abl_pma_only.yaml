@@ -1,0 +1,50 @@
+# E2.4 消融单元:iBOT + PMA 回归头(visit-consistency 关)。
+# 与 ssl_ibot_abl_heads.yaml 唯一差异:visit_w=0.0。
+route: ibot
+device: cuda:0
+check_gpu_free_mb: 40000
+manifest: data/manifests/ssl_corpus_manifest.csv
+output_dir: outputs/ssl/ibot_dinov2s_heads_pma_only
+base_model: dinov2_vits14
+img_size: 224
+seed: 0
+
+data:
+  n_global: 2
+  global_size: 224
+  n_local: 2
+  local_size: 98
+  num_workers: 4
+
+train:
+  max_epochs: 50
+  batch_size: 16
+  accum_steps: 4
+  lr: 1.5e-4
+  min_lr: 1.5e-6
+  warmup_epochs: 5
+  weight_decay: 0.04
+  weight_decay_end: 0.4
+  clip_grad: 3.0
+  momentum_teacher: 0.994
+  center_momentum: 0.9
+  teacher_temp: 0.04
+  student_temp: 0.1
+  freeze_last_layer_epochs: 1
+  amp: true
+
+heads:
+  out_dim: 256
+  hidden: 1024
+  bottleneck: 256
+  patch_hidden: 384
+  pma_w: 0.1
+  visit_w: 0.0
+  visit_tau: 0.1
+
+ibot:
+  mask_ratio: 0.35
+  mask_aspect: [0.75, 1.5]
+
+log_every: 50
+ckpt_every: 5

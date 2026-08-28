@@ -1,0 +1,15 @@
+# 分辨率敏感度实验探针:green@224 + dino-s@392(协议同 probe_extract.yaml)
+models: [retfound_green_224, dinov2_vits14_392]
+
+feature_source: extract
+cache_dir: outputs/benchmark_cache   # reference baseline cache; override with NEOROPFM_BENCHMARK_CACHE or place files here
+extract_dir: outputs/features
+splits_dir: data/manifests/splits
+output_dir: outputs/probes
+
+lr:
+  class_weight: balanced
+  C: 1.0
+  max_iter: 5000
+
+seed: 0

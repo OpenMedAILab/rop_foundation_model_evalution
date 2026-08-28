@@ -1,0 +1,19 @@
+# E1.8 全量微调(仅小模型,tertiary:sanity check 验证 PEFT 是否逼近全量微调)
+device: cuda:0
+check_gpu_free_mb: 30000
+splits_dir: data/manifests/splits
+output_dir: outputs/fullft
+models: [efficientnet_b0, convnext_tiny]
+full: true
+
+train:
+  epochs: 10
+  patience: 3
+  batch_size: 32
+  lr: 1.0e-4                    # 全量微调主体 lr(低于 LoRA 的 3e-4,防破坏预训练特征)
+  head_lr: 1.0e-3               # 新随机线性头 lr
+  weight_decay: 0.01
+
+num_workers: 4
+val_frac: 0.1
+seed: 0

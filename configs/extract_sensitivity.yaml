@@ -1,0 +1,7 @@
+# 分辨率敏感度实验特征提取:green@224 + dino-s@392(与 extract.yaml 同协议)
+device: cuda:0
+check_gpu_free_mb: 30000          # 提取前校验 GPU 空闲 ≥30GB;0 = 跳过
+batch_size: 64
+num_workers: 4
+output_dir: outputs/features
+seed: 0

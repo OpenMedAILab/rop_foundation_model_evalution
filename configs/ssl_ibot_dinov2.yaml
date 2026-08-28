@@ -1,0 +1,53 @@
+# E2.2 iBOT 继续预训练(主路线;DINOv2-S/14 起点,方案 §8.2 teacher–student +
+# masked-token)。有效 batch 64(16×accum 4,方案 §8.2:≥64),bf16 + 单卡 4090。
+# 训练产物:outputs/ssl/ibot_dinov2s_v1/ckpt_ep{NNN}.pth(仅裸 backbone 权重,
+# 由 get_ssl_backbone 挂回 probe 管线评估;checkpoint 间隔 5 ep,E2.5 按 probe 指标选最优)。
+route: ibot
+device: cuda:0
+check_gpu_free_mb: 40000      # SSL 比 LoRA 重,要求 40GB 空闲;0 = 跳过
+manifest: data/manifests/ssl_corpus_manifest.csv
+output_dir: outputs/ssl/ibot_dinov2s_v1
+base_model: dinov2_vits14
+img_size: 224
+seed: 0
+
+data:
+  n_global: 2
+  global_size: 224
+  n_local: 2
+  local_size: 98           # 官方 DINO 为 96;timm patch_embed 强制 patch 整除(96%14≠0,
+                           # 官方 Conv2d 自动截断到 6×6 grid),取 98=7×14 等价(grid 7×7)
+  num_workers: 4
+
+train:
+  max_epochs: 50
+  batch_size: 16
+  accum_steps: 4
+  lr: 1.5e-4              # DINOv2 线性缩放口径:5e-4 × 64/256 ≈ 1.25e-4,取 1.5e-4
+  min_lr: 1.5e-6
+  warmup_epochs: 5
+  weight_decay: 0.04
+  weight_decay_end: 0.4
+  clip_grad: 3.0
+  momentum_teacher: 0.994
+  center_momentum: 0.9
+  teacher_temp: 0.04
+  student_temp: 0.1
+  freeze_last_layer_epochs: 1
+  amp: true
+
+heads:
+  out_dim: 256
+  hidden: 1024
+  bottleneck: 256
+  patch_hidden: 384
+  pma_w: 0.0              # E2.4 消融:>0 挂 PMA 回归头(建议 0.1)
+  visit_w: 0.0            # E2.4 消融:>0 挂 visit-consistency InfoNCE(建议 0.1)
+  visit_tau: 0.1
+
+ibot:
+  mask_ratio: 0.35
+  mask_aspect: [0.75, 1.5]
+
+log_every: 50
+ckpt_every: 5

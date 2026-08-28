@@ -1,0 +1,7 @@
+# E1.7 LoRA PEFT 聚合(与冻结 probe 主表同口径,便于对照)
+models: [retfound_green, retfound_mae_cfp, dinov2_vits14, dinov2_vitb14, convnext_tiny, efficientnet_b0]
+probe_dir: outputs/peft
+metrics_stem: peft
+output_dir: outputs/aggregate_peft
+n_boot: 2000
+seed: 42

@@ -1,0 +1,7 @@
+# E1.8 全量微调聚合(小模型与 LoRA/冻结对照)
+models: [efficientnet_b0, convnext_tiny]
+probe_dir: outputs/fullft
+metrics_stem: fullft
+output_dir: outputs/aggregate_fullft
+n_boot: 2000
+seed: 42

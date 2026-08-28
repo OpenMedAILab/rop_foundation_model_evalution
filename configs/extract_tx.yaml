@@ -1,0 +1,9 @@
+# P3b FARFUM 治疗终点探针特征提取(全量 1,533 图,不经 strict 过滤)
+# 提取清单 = outputs/audit/farfum_grade_audit.csv(带 image_path 与 y_tx 双口径),
+# 由 experiments/e2c_heads_ablation_seeds.sh 在 GPU 空闲后调用。
+device: cuda:0
+check_gpu_free_mb: 0          # 0 = 跳过门控(由外层 gpu_queue.sh 45GB 门控负责)
+batch_size: 64
+num_workers: 4
+output_dir: outputs/features_tx
+seed: 0
